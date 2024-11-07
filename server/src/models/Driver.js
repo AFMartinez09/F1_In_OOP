@@ -41,6 +41,13 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    teamId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Teams',
+        key: id,
+      }
     }
   }, {
     timestamps: false,
