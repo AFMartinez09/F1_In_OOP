@@ -28,7 +28,11 @@ module.exports = (sequelize) => {
     },
     number: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.BLOB,
+      allowNull: true,
     },
     code: {
       type: DataTypes.STRING,
