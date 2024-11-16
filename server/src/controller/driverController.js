@@ -11,8 +11,8 @@ class DriversController {
     try {
       return api.map(drivers => ({
         id: drivers.id,
-        name: drivers.forename.name,
-        lastname: drivers.forename.lastname,
+        name: drivers.name.forename,
+        lastname: drivers.name.surename,
         dob: drivers.dob,
         nationality: drivers.nationality,
         number: drivers.number !== '\\N' ? drivers.number : 'Number not assigned',
@@ -52,11 +52,34 @@ class DriversController {
     return dbDrivers;
   }
 
-  async getDriversById(){
-    try {
-      
+  async getDriversById(id){
+    try {        
+      const driver =  await Drivers.findByPk(id,{
+        include: [{
+          model: Teams,
+          attributes: ["name"],
+        }]
+      })
+
+      if (driver){
+        const teamsName = await driver.Teams.map(team => team.name).join(", ");
+
+        const driverTeams = {
+          id: driver.id,
+          name: driver.name.forename,
+          lastname: driver.name.surname,
+          dob: driver.dob,
+          nationality: driver.nationality,
+          number: driver.number,
+          image: driver.image.url,
+          code: driver.code,
+          teams: teamsName,
+          description: driver.description,
+        }
+        return driverTeams;
+      }
     } catch (error) {
-      
+        throw new Error("Driver not found");
     }
   }
   async getDriversByName(){
