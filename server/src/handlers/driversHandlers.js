@@ -33,9 +33,9 @@ class DriversHandlers{
         return res.status(404).send("Driver name not found");
       }
 
-      res.status(201).json(response);
+      res.status(200).json(response);
     } catch (error) {
-      
+        res.status(500).json({ error: error.message });
     }
   }
   async setPostDriver(req, res){
