@@ -82,8 +82,19 @@ class DriversController {
         throw new Error("Driver not found");
     }
   }
-  async getDriversByName(){
-
+  async getDriversByName( name ){
+    const driverName = await Drivers.findAll({
+      where: {
+        name: { 
+          [Op.like]: `%${ name }%`
+        },
+      },
+      include:{
+        model: Teams,
+        attributes: ['name'],
+        through: { attributes: [] },
+      },
+    });
   }
   async postDriver(){
     try {
