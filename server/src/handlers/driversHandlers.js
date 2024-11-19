@@ -39,7 +39,32 @@ class DriversHandlers {
   }
   async setPostDriver(req, res) {
     try {
-    } catch (error) {}
+      const {
+        forename,
+        surname, 
+        dob,
+        nationality,
+        number,
+        url,
+        code,
+        teams,
+        description
+      }= req.body;
+      const response = await this.setPostDriver(
+        forename,
+        surname,
+        dob,
+        nationality,
+        number,
+        url,
+        code,
+        teams,
+        description,
+      );
+      res.status(201).json(response);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
   async setPutDriver(req, res) {
     try {
