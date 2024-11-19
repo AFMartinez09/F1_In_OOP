@@ -26,7 +26,7 @@ class DriversHandlers {
   async getDriversByName(req, res) {
     try {
       const { name } = req.query;
-      const response = await this.getDriversByName(name);
+      const response = await DriversController.getDriversByName(name);
 
       if (!response) {
         return res.status(404).send("Driver name not found");
@@ -50,7 +50,7 @@ class DriversHandlers {
         teams,
         description
       }= req.body;
-      const response = await this.setPostDriver(
+      const response = await DriversController.setPostDriver(
         forename,
         surname,
         dob,
@@ -80,7 +80,7 @@ class DriversHandlers {
         teams,
         description,
       } = req.body;
-      const response = await this.setPutDriver(
+      const response = await DriversController.setPutDriver(
         id,
         forename,
         surname,
@@ -100,7 +100,7 @@ class DriversHandlers {
     try {
       try {
         const { id } = req.params;
-        const response = await this.setDeleteDriver(id);
+        const response = await DriversController.setDeleteDriver(id);
         res.status(201).json(response);
       } catch (error) {
         res.status(500).json({ error: error.message });
