@@ -97,7 +97,6 @@ class DriversHandlers {
     res.status(500).json({ error: error.message });
   }
   async setDeleteDriver(req, res) {
-    try {
       try {
         const { id } = req.params;
         const response = await DriversController.setDeleteDriver(id);
@@ -105,7 +104,6 @@ class DriversHandlers {
       } catch (error) {
         res.status(500).json({ error: error.message });
       }
-    } catch (error) {}
   }
 }
 
