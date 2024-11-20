@@ -1,6 +1,6 @@
 const { Drivers, Teams } = require("../db");
 const axios = require("axios");
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 
 class DriversController {
   static URL = process.env.URL;
@@ -105,7 +105,7 @@ class DriversController {
     }
   }
 
-  async postDriver( forename, surename, dob, nationality, number, url, code, teams, description ) {
+  async setPostDriver( forename, surename, dob, nationality, number, url, code, teams, description ) {
     try {
       if (!forename, !surename, !dob, !nationality, !number, !url, !code, !teams, !description){
         throw new Error("Incomplete data");
@@ -156,8 +156,14 @@ class DriversController {
       console.error("Failed to update the driver.");
     }
   }
-  async deleteDriver() {
+  async setDeleteDriver(id) {
     try {
+      await Drivers.destroy({
+        where:{
+          id
+        }
+      });
+      return true;
     } catch (error) {
       console.error("Failed to delete the driver.");
     }
