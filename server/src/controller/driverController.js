@@ -39,7 +39,7 @@ class DriversController {
     if (dbDrivers.length === 0) {
       try {
         // Fetching API data
-        const apiFormulaOne = await axios.get(DriversController.URL);
+        const apiFormulaOne = await axios.get(`${DriversController.URL}`);
         const drivers = this.cleanApiFormulaOne(apiFormulaOne.data);
         // Adding data from API data to dbDrivers
         await Drivers.bulkCreate(drivers);
@@ -146,11 +146,11 @@ class DriversController {
       console.error("Failed to create the driver.");
     }
   }
-  async setPutDriver(forename,surename, dob, nationality, number, url, code, teams, description ){
+  async setPutDriver(id, forename,surename, dob, nationality, number, url, code, teams, description ){
     try {
-      if (
-        (!id, !forename, !surename, !dob, !nationality, !number, !url, !code, !teams, !description)
-      )
+      if (!id, !forename, !surename, !dob, !nationality, !number, !url, !code, !teams, !description){
+
+      }
         throw new Error("Incomplete data");
     } catch (error) {
       console.error("Failed to update the driver.");
