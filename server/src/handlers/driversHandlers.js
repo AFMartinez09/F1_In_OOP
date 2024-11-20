@@ -1,4 +1,4 @@
-const DriversController = require("../controller/driverController");
+const DriversService = require("../service/DriversService");
 
 class DriversHandlers {
   async getAllDrivers(req, res) {
@@ -12,7 +12,7 @@ class DriversHandlers {
   async getDriverById(req, res) {
     try {
       const { id } = req.params;
-      const response = await DriversController.getAllDrivers(id);
+      const response = await DriversService.getAllDrivers(id);
 
       if (!response) {
         return res.status(404).send("Id not found");
@@ -26,7 +26,7 @@ class DriversHandlers {
   async getDriversByName(req, res) {
     try {
       const { name } = req.query;
-      const response = await DriversController.getDriversByName(name);
+      const response = await DriversService.getDriversByName(name);
 
       if (!response) {
         return res.status(404).send("Driver name not found");
@@ -50,7 +50,7 @@ class DriversHandlers {
         teams,
         description
       }= req.body;
-      const response = await DriversController.setPostDriver(
+      const response = await DriversService.setPostDriver(
         forename,
         surname,
         dob,
@@ -80,7 +80,7 @@ class DriversHandlers {
         teams,
         description,
       } = req.body;
-      const response = await DriversController.setPutDriver(
+      const response = await DriversService.setPutDriver(
         id,
         forename,
         surname,
@@ -99,7 +99,7 @@ class DriversHandlers {
   async setDeleteDriver(req, res) {
       try {
         const { id } = req.params;
-        const response = await DriversController.setDeleteDriver(id);
+        const response = await DriversService.setDeleteDriver(id);
         res.status(201).json(response);
       } catch (error) {
         res.status(500).json({ error: error.message });
